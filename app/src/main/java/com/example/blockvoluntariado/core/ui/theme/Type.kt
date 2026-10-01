@@ -1,4 +1,4 @@
-package com.example.blockvoluntariado.ui.theme
+package com.example.blockvoluntariado.core.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
