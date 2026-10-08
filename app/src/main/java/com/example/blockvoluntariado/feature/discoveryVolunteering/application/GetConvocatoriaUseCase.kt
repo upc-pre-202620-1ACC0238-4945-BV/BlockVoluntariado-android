@@ -5,6 +5,6 @@ import javax.inject.Inject
 
 class GetConvocatoriaUseCase @Inject constructor(val convocatoria: ConvocatoriasRepository){
 
-    suspend fun invoke() = convocatoria.getConvocatorias()
+    suspend operator fun invoke() = convocatoria.getConvocatorias()
 
 }
