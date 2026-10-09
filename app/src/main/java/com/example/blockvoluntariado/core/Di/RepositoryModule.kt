@@ -25,5 +25,8 @@ interface RepositoryModule {
     fun provideConvocatoriaRepository(impl: DiscoveryInMemoryRepository): ConvocatoriasRepository
 
     @Binds
+    fun provideParticipationRepository(impl: com.example.blockvoluntariado.feature.participationTracking.infrastructure.repository.ParticipationRepositoryImpl): com.example.blockvoluntariado.feature.participationTracking.domain.repository.ParticipationRepository
+
+    @Binds
     fun provideVolunteerRepository(impl: VolunteerInMemoryRepository): VolunteerRepository
 }
