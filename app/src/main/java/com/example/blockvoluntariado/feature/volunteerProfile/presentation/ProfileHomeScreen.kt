@@ -21,7 +21,8 @@ fun ProfileHomeScreen(
     volunteerId: Int = 1,
     viewModel: ProfileHomeViewModel = hiltViewModel(), // Usar ProfileViewModel
     onNavigateToProfileEdit: (Int) -> Unit,
-    onNavigateToPreferencesEdit: (Int) -> Unit
+    onNavigateToPreferencesEdit: (Int) -> Unit,
+    onNavigateToCertificates: () -> Unit = {}
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle().value
 
@@ -44,6 +45,7 @@ fun ProfileHomeScreen(
                     preferences = state.preferences ?: volunteer.preferences,
                     onEditProfile = { onNavigateToProfileEdit(volunteerId) },
                     onEditPreferences = { onNavigateToPreferencesEdit(volunteerId) },
+                    onNavigateToCertificates = onNavigateToCertificates,
                     modifier = Modifier.verticalScroll(rememberScrollState())
                 )
             }

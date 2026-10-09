@@ -19,6 +19,7 @@ fun InformationList(
     preferences: VolunteerPreferences,
     onEditProfile: () -> Unit,
     onEditPreferences: () -> Unit,
+    onNavigateToCertificates: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -45,8 +46,17 @@ fun InformationList(
             }
         }
 
-        InformationCard(title = "Mi experiencia") {
-            InformationRow("Horas acumuladas", "${volunteer.accumulatedHours} horas")
+        InformationCard(title = "Mi experiencia y Logros") {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                InformationRow("Horas acumuladas", "${volunteer.accumulatedHours} horas")
+                androidx.compose.material3.Button(
+                    onClick = onNavigateToCertificates,
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp)
+                ) {
+                    Text("Ver Diplomas y Logros Blockchain")
+                }
+            }
         }
     }
 }
