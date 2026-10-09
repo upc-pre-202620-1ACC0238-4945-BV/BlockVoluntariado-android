@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.blockvoluntariado.Main.NavigationDiscoveryVolunteering.discoveryNavGraph
 import com.example.blockvoluntariado.feature.application.navigation.applicationNavGraph
+import com.example.blockvoluntariado.feature.participationTracking.navigation.participationNavGraph
 import com.example.blockvoluntariado.feature.volunteerProfile.presentation.DetailPreference
 import com.example.blockvoluntariado.feature.volunteerProfile.presentation.DetailProfile
 import com.example.blockvoluntariado.feature.volunteerProfile.presentation.ProfileHomeScreen
@@ -45,7 +46,10 @@ fun MainScreen(
                 }
             )
 
-            // 3. Grafo de navegación de Volunteer Profile
+            // 3. Grafo de navegación de Participation Management
+            participationNavGraph(navController)
+
+            // 4. Grafo de navegación de Volunteer Profile
             composable<VolunteerProfileRoute> {
                 ProfileHomeScreen(
                     volunteerId = currentVolunteerId,

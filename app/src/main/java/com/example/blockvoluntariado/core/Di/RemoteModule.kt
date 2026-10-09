@@ -84,6 +84,12 @@ object RemoteModule {
 
     @Provides
     @Singleton
+    fun provideParticipationService(retrofit: Retrofit): com.example.blockvoluntariado.feature.participationTracking.infrastructure.remote.ParticipationService {
+        return retrofit.create(com.example.blockvoluntariado.feature.participationTracking.infrastructure.remote.ParticipationService::class.java)
+    }
+
+    @Provides
+    @Singleton
     fun provideVolunteerService(retrofit: Retrofit): VolunteerService {
         return retrofit.create(VolunteerService::class.java)
     }
