@@ -4,7 +4,11 @@ package com.example.blockvoluntariado.Main.NavigationShared
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object HomeRoute
+data object VolunteerProfileRoute
 
 @Serializable
-data class DetailRoute(val id: Int)
+data class EditVolunteerProfileRoute(val volunteerId: Int)
+
+@Serializable
+data class EditVolunteerPreferencesRoute(val volunteerId: Int)
+

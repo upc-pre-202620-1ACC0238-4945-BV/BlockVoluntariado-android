@@ -4,7 +4,7 @@ import com.example.blockvoluntariado.feature.volunteerProfile.domain.valueObject
 import com.example.blockvoluntariado.feature.volunteerProfile.domain.valueObjects.VolunteerPreferences
 
 
-data class Voluntariado(
+data class Volunteer(
 
     val id: Long,
     val userId: Long,

@@ -1,6 +1,7 @@
-package com.example.blockvoluntariado.feature.discoveryVolunteering.infrastructure.Di
+package com.example.blockvoluntariado.core.Di
 
 import com.example.blockvoluntariado.feature.discoveryVolunteering.infrastructure.Remote.ConvocatoriaService
+import com.example.blockvoluntariado.feature.volunteerProfile.infrastructure.Remote.VolunteerService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,26 +12,26 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-
 object RemoteModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit{
-        return Retrofit
-            .Builder()
+    fun provideRetrofit(): Retrofit {
+        return Retrofit.Builder()
             .baseUrl("https://api.blockvoluntariado.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-
-
     @Provides
     @Singleton
-    fun provideConvocatoriaService(retrofit: Retrofit): ConvocatoriaService{
+    fun provideConvocatoriaService(retrofit: Retrofit): ConvocatoriaService {
         return retrofit.create(ConvocatoriaService::class.java)
     }
 
-
+    @Provides
+    @Singleton
+    fun provideVolunteerService(retrofit: Retrofit): VolunteerService {
+        return retrofit.create(VolunteerService::class.java)
+    }
 }

@@ -9,11 +9,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.blockvoluntariado.Main.NavigationDiscoveryVolunteering.discoveryNavGraph
-import com.example.blockvoluntariado.feature.discoveryVolunteering.presentation.ConvocatoriaDetailScreen
-import com.example.blockvoluntariado.feature.discoveryVolunteering.presentation.HomeScreen
+import com.example.blockvoluntariado.feature.volunteerProfile.presentation.DetailPreference
+import com.example.blockvoluntariado.feature.volunteerProfile.presentation.DetailProfile
+import com.example.blockvoluntariado.feature.volunteerProfile.presentation.ProfileHomeScreen
+
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    currentVolunteerId: Int = 1 // Adaptable: puedes pasar el ID del usuario logueado o dejar 1 por defecto
+) {
     val navController = rememberNavController()
 
     Scaffold(
@@ -27,23 +31,36 @@ fun MainScreen() {
             modifier = Modifier.padding(innerPadding)
         ) {
 
+            // 1. Grafo de navegación de Discovery Volunteering
+            discoveryNavGraph(navController)
 
-            composable<HomeRoute> {
-                HomeScreen(
-                    OnNavigateToDetail = { convocatoriaId ->
-                        navController.navigate(
-                            DetailRoute(convocatoriaId)
-                        )
+            // 2. Grafo de navegación de Volunteer Profile
+            composable<VolunteerProfileRoute> {
+                ProfileHomeScreen(
+                    volunteerId = currentVolunteerId,
+                    onNavigateToProfileEdit = { id ->
+                        navController.navigate(EditVolunteerProfileRoute(id))
+                    },
+                    onNavigateToPreferencesEdit = { id ->
+                        navController.navigate(EditVolunteerPreferencesRoute(id))
                     }
                 )
             }
 
-            composable<DetailRoute> { backStackEntry ->
-                val detailRoute: DetailRoute =
-                    backStackEntry.toRoute()
+            composable<EditVolunteerProfileRoute> { backStackEntry ->
+                val route = backStackEntry.toRoute<EditVolunteerProfileRoute>()
+                DetailProfile(
+                    volunteerId = route.volunteerId,
+                    onBack = {
+                        navController.popBackStack()
+                    }
+                )
+            }
 
-                ConvocatoriaDetailScreen(
-                    convocatoriaId = detailRoute.id,
+            composable<EditVolunteerPreferencesRoute> { backStackEntry ->
+                val route = backStackEntry.toRoute<EditVolunteerPreferencesRoute>()
+                DetailPreference(
+                    volunteerId = route.volunteerId,
                     onBack = {
                         navController.popBackStack()
                     }

@@ -4,8 +4,8 @@ import java.time.LocalDate
 
 data class HorarioDto(
 
-    val startDate: LocalDate?,
-    val endDate: LocalDate?,
+    val startDate: String?,
+    val endDate: String?,
     val startTime: String?,
     val endTime: String?
 

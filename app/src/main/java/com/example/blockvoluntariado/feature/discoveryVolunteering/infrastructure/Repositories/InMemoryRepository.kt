@@ -23,8 +23,8 @@ class InMemoryRepository @Inject constructor() : ConvocatoriasRepository {
             totalVacancies = "30",
             occupiedVacancies = "12",
             horario = Horario(
-                startDate = LocalDate.of(2025, 4, 15),
-                endDate = LocalDate.of(2025, 4, 15),
+                startDate = "2025-04-15",
+                endDate = "2025-04-15",
                 startTime = "08:00 AM",
                 endTime = "01:00 PM"
             ),
@@ -45,10 +45,10 @@ class InMemoryRepository @Inject constructor() : ConvocatoriasRepository {
             totalVacancies = "20",
             occupiedVacancies = "8",
             horario = Horario(
-                startDate = LocalDate.of(2025, 4, 20),
-                endDate = LocalDate.of(2025, 4, 20),
-                startTime = "03:00 PM",
-                endTime = "06:00 PM"
+                startDate = "2025-04-15",
+                endDate = "2025-04-15",
+                startTime = "08:00 AM",
+                endTime = "01:00 PM"
             ),
             ubicacion = Ubicacion(
                 address = "Av. Próceres de la Independencia 1234",
@@ -67,10 +67,10 @@ class InMemoryRepository @Inject constructor() : ConvocatoriasRepository {
             totalVacancies = "15",
             occupiedVacancies = "15",
             horario = Horario(
-                startDate = LocalDate.of(2025, 5, 1),
-                endDate = LocalDate.of(2025, 5, 1),
-                startTime = "09:00 AM",
-                endTime = "02:00 PM"
+                startDate = "2025-04-15",
+                endDate = "2025-04-15",
+                startTime = "08:00 AM",
+                endTime = "01:00 PM"
             ),
             ubicacion = Ubicacion(
                 address = "Calle Los Jazmines 450",
@@ -83,12 +83,12 @@ class InMemoryRepository @Inject constructor() : ConvocatoriasRepository {
     )
 
     override suspend fun getConvocatorias(): Result<List<Convocatoria>> {
-        delay(1000.milliseconds) // Simula latencia de red (1 segundo)
+        delay(1000.milliseconds)
         return Result.success(_convocatorias)
     }
 
     override suspend fun getConvocatoriasById(id: Int): Result<Convocatoria?> {
-        delay(500.milliseconds) // Simula latencia de red (0.5 segundos)
+        delay(500.milliseconds)
         val convocatoria = _convocatorias.find { it.id == id }
         return Result.success(convocatoria)
     }
