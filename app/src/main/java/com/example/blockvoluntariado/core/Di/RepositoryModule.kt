@@ -1,5 +1,7 @@
 package com.example.blockvoluntariado.core.Di
 
+import com.example.blockvoluntariado.feature.authOnboarding.domain.repository.AuthRepository
+import com.example.blockvoluntariado.feature.authOnboarding.infrastructure.repository.AuthRepositoryImpl
 import com.example.blockvoluntariado.feature.discoveryVolunteering.domain.ConvocatoriasRepository
 import com.example.blockvoluntariado.feature.discoveryVolunteering.infrastructure.Repositories.InMemoryRepository as DiscoveryInMemoryRepository
 import com.example.blockvoluntariado.feature.volunteerProfile.domain.VolunteerRepository
@@ -12,6 +14,9 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 interface RepositoryModule {
+
+    @Binds
+    fun provideAuthRepository(impl: AuthRepositoryImpl): AuthRepository
 
     @Binds
     fun provideConvocatoriaRepository(impl: DiscoveryInMemoryRepository): ConvocatoriasRepository

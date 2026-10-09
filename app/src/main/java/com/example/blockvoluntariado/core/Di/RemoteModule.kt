@@ -3,6 +3,7 @@ package com.example.blockvoluntariado.core.Di
 import android.content.Context
 import com.example.blockvoluntariado.core.network.AuthInterceptor
 import com.example.blockvoluntariado.core.storage.TokenManager
+import com.example.blockvoluntariado.feature.authOnboarding.infrastructure.remote.AuthService
 import com.example.blockvoluntariado.feature.discoveryVolunteering.infrastructure.Remote.ConvocatoriaService
 import com.example.blockvoluntariado.feature.volunteerProfile.infrastructure.Remote.VolunteerService
 import dagger.Module
@@ -61,6 +62,12 @@ object RemoteModule {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthService(retrofit: Retrofit): AuthService {
+        return retrofit.create(AuthService::class.java)
     }
 
     @Provides
