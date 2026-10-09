@@ -31,5 +31,8 @@ interface RepositoryModule {
     fun provideGamificationRepository(impl: com.example.blockvoluntariado.feature.gamificationFeedback.infrastructure.repository.GamificationRepositoryImpl): com.example.blockvoluntariado.feature.gamificationFeedback.domain.repository.GamificationRepository
 
     @Binds
+    fun provideNotificationRepository(impl: com.example.blockvoluntariado.feature.notifications.infrastructure.repository.NotificationRepositoryImpl): com.example.blockvoluntariado.feature.notifications.domain.repository.NotificationRepository
+
+    @Binds
     fun provideVolunteerRepository(impl: VolunteerInMemoryRepository): VolunteerRepository
 }

@@ -20,6 +20,7 @@ fun InformationList(
     onEditProfile: () -> Unit,
     onEditPreferences: () -> Unit,
     onNavigateToCertificates: () -> Unit = {},
+    onNavigateToNotifications: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -56,6 +57,16 @@ fun InformationList(
                 ) {
                     Text("Ver Diplomas y Logros Blockchain")
                 }
+            }
+        }
+
+        InformationCard(title = "Comunicaciones y Notificaciones") {
+            androidx.compose.material3.OutlinedButton(
+                onClick = onNavigateToNotifications,
+                modifier = Modifier.fillMaxWidth(),
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp)
+            ) {
+                Text("Bandeja de Notificaciones y Alertas")
             }
         }
     }
