@@ -12,6 +12,8 @@ import com.example.blockvoluntariado.Main.NavigationDiscoveryVolunteering.discov
 import com.example.blockvoluntariado.feature.application.navigation.applicationNavGraph
 import com.example.blockvoluntariado.feature.gamificationFeedback.navigation.GamificationRoute
 import com.example.blockvoluntariado.feature.gamificationFeedback.navigation.gamificationNavGraph
+import com.example.blockvoluntariado.feature.notifications.navigation.NotificationsInboxRoute
+import com.example.blockvoluntariado.feature.notifications.navigation.notificationsNavGraph
 import com.example.blockvoluntariado.feature.participationTracking.navigation.participationNavGraph
 import com.example.blockvoluntariado.feature.volunteerProfile.presentation.DetailPreference
 import com.example.blockvoluntariado.feature.volunteerProfile.presentation.DetailProfile
@@ -54,7 +56,10 @@ fun MainScreen(
             // 4. Grafo de navegación de Gamification & Feedback
             gamificationNavGraph(navController)
 
-            // 5. Grafo de navegación de Volunteer Profile
+            // 5. Grafo de navegación de Communication & Notifications
+            notificationsNavGraph(navController)
+
+            // 6. Grafo de navegación de Volunteer Profile
             composable<VolunteerProfileRoute> {
                 ProfileHomeScreen(
                     volunteerId = currentVolunteerId,
@@ -66,6 +71,9 @@ fun MainScreen(
                     },
                     onNavigateToCertificates = {
                         navController.navigate(GamificationRoute)
+                    },
+                    onNavigateToNotifications = {
+                        navController.navigate(NotificationsInboxRoute)
                     }
                 )
             }

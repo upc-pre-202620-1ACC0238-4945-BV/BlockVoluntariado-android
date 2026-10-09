@@ -96,6 +96,12 @@ object RemoteModule {
 
     @Provides
     @Singleton
+    fun provideNotificationService(retrofit: Retrofit): com.example.blockvoluntariado.feature.notifications.infrastructure.remote.NotificationService {
+        return retrofit.create(com.example.blockvoluntariado.feature.notifications.infrastructure.remote.NotificationService::class.java)
+    }
+
+    @Provides
+    @Singleton
     fun provideVolunteerService(retrofit: Retrofit): VolunteerService {
         return retrofit.create(VolunteerService::class.java)
     }
