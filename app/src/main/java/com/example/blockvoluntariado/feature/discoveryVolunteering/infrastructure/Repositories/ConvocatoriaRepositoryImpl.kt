@@ -11,15 +11,10 @@ class ConvocatoriaRepositoryImpl @Inject constructor(
 
     override suspend fun getConvocatorias(): Result<List<Convocatoria>> {
         return try {
-
             val response = service.getConvocatorias()
-
             if (response.isSuccessful) {
-                val responseDto = response.body()
-                val convocatorias = responseDto?.convocatoria?.map { dto ->
-                    dto.toDomain()
-                } ?: emptyList()
-
+                val list = response.body() ?: emptyList()
+                val convocatorias = list.map { it.toDomain() }
                 Result.success(convocatorias)
             } else {
                 Result.failure(Exception("Error HTTP: ${response.code()}"))
@@ -31,12 +26,10 @@ class ConvocatoriaRepositoryImpl @Inject constructor(
 
     override suspend fun getConvocatoriasById(id: Int): Result<Convocatoria?> {
         return try {
-            val response = service.getConvocatoriasByid(id)
-
+            val response = service.getConvocatoriasById(id)
             if (response.isSuccessful) {
-                val responseDto = response.body()
-                val convocatoria = responseDto?.convocatoria?.firstOrNull()?.toDomain()
-                Result.success(convocatoria)
+                val dto = response.body()
+                Result.success(dto?.toDomain())
             } else {
                 Result.failure(Exception("Error HTTP: ${response.code()}"))
             }

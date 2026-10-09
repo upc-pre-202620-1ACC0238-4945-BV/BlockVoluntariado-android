@@ -3,19 +3,17 @@ package com.example.blockvoluntariado.feature.discoveryVolunteering.infrastructu
 import com.example.blockvoluntariado.feature.discoveryVolunteering.infrastructure.Remote.valueObjects.EstadoConvocatoriaDto
 import com.example.blockvoluntariado.feature.discoveryVolunteering.infrastructure.Remote.valueObjects.HorarioDto
 import com.example.blockvoluntariado.feature.discoveryVolunteering.infrastructure.Remote.valueObjects.UbicacionDto
-
+import com.google.gson.annotations.SerializedName
 
 data class ConvocatoriaDto(
-
-    val id : Int,
-    val organizationId : Int,
-    val title: String,
-    val description: String,
-    val causaType: String,
-    val totalVacancies: String,
-    val occupiedVacancies: String,
-    val horario: HorarioDto,
-    val ubicacion: UbicacionDto,
-    val status: EstadoConvocatoriaDto
-
+    @SerializedName("id") val id: Int,
+    @SerializedName("organizationId") val organizationId: Int = 1,
+    @SerializedName("title") val title: String = "",
+    @SerializedName("description") val description: String = "",
+    @SerializedName(value = "causaType", alternate = ["causeType"]) val causaType: String? = null,
+    @SerializedName("totalVacancies") val totalVacancies: String? = null,
+    @SerializedName("occupiedVacancies") val occupiedVacancies: String? = null,
+    @SerializedName("horario") val horario: HorarioDto? = null,
+    @SerializedName("ubicacion") val ubicacion: UbicacionDto? = null,
+    @SerializedName("status") val status: EstadoConvocatoriaDto? = null
 )

@@ -6,12 +6,9 @@ import retrofit2.http.Path
 
 interface ConvocatoriaService {
 
-    @GET ("convocatorias")
-    suspend fun  getConvocatorias(): Response<ConvocatoriaResponseDto>
+    @GET("v1/convocatorias")
+    suspend fun getConvocatorias(): Response<List<ConvocatoriaDto>>
 
-
-    @GET ("convocatorias/{convocatoriaId}")
-    suspend fun getConvocatoriasByid(@Path("convocatoriaId")id: Int): Response<ConvocatoriaResponseDto>
-
-
+    @GET("v1/convocatorias/{convocatoriaId}")
+    suspend fun getConvocatoriasById(@Path("convocatoriaId") id: Int): Response<ConvocatoriaDto>
 }

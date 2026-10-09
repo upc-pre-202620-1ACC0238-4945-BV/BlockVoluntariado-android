@@ -15,28 +15,28 @@ fun ConvocatoriaDto.toDomain(): Convocatoria {
         organizationId = this.organizationId,
         title = this.title,
         description = this.description,
-        causaType = this.causaType,
-        totalVacancies = this.totalVacancies,
-        occupiedVacancies = this.occupiedVacancies,
-        horario = this.horario.toDomain(),
-        ubicacion = this.ubicacion.toDomain(),
-        status = this.status.toDomain()
+        causaType = this.causaType ?: "Social",
+        totalVacancies = this.totalVacancies ?: "10",
+        occupiedVacancies = this.occupiedVacancies ?: "0",
+        horario = this.horario?.toDomain() ?: Horario("", "", "", ""),
+        ubicacion = this.ubicacion?.toDomain() ?: Ubicacion("Lima", "Lima", 0.0, 0.0),
+        status = this.status?.toDomain() ?: EstadoConvocatoria.PUBLICADA
     )
 }
 
 fun HorarioDto.toDomain(): Horario {
     return Horario(
-        startDate = this.startDate,
-        endDate = this.endDate,
-        startTime = this.startTime,
-        endTime = this.endTime
+        startDate = this.startDate ?: "",
+        endDate = this.endDate ?: "",
+        startTime = this.startTime ?: "",
+        endTime = this.endTime ?: ""
     )
 }
 
 fun UbicacionDto.toDomain(): Ubicacion {
     return Ubicacion(
-        address = this.address,
-        district = this.district,
+        address = this.address ?: "",
+        district = this.district ?: "",
         latitude = this.latitude,
         longitude = this.longitude
     )
