@@ -30,6 +30,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -57,6 +61,8 @@ private val DetailRed = Color(0xFFB42318)
 fun ConvocatoriaDetailScreen(
     convocatoriaId: Int,
     onBack: (() -> Unit)? = null,
+    onPostular: ((convocatoriaId: Int, motivation: String, onDone: () -> Unit) -> Unit)? = null,
+    onNavigateToApplications: (() -> Unit)? = null,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     LaunchedEffect(convocatoriaId) {
@@ -64,6 +70,9 @@ fun ConvocatoriaDetailScreen(
     }
 
     val state = viewModel.state.collectAsStateWithLifecycle().value
+    var showApplyDialog by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
+    var isApplying by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
+    var hasApplied by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
 
     Scaffold(
         containerColor = DetailBackground
@@ -365,7 +374,79 @@ fun ConvocatoriaDetailScreen(
                             )
                         }
 
-                        Spacer(Modifier.height(4.dp))
+                        Spacer(Modifier.height(16.dp))
+
+                        if (hasApplied) {
+                            Surface(
+                                shape = RoundedCornerShape(16.dp),
+                                color = DetailGreen.copy(alpha = 0.12f),
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(16.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(
+                                        text = "✓ ¡Ya te has postulado a esta convocatoria!",
+                                        fontWeight = FontWeight.Bold,
+                                        color = DetailGreen,
+                                        fontSize = 15.sp
+                                    )
+                                    Spacer(Modifier.height(8.dp))
+                                    if (onNavigateToApplications != null) {
+                                        Button(
+                                            onClick = onNavigateToApplications,
+                                            colors = ButtonDefaults.buttonColors(containerColor = DetailGreen),
+                                            shape = RoundedCornerShape(12.dp)
+                                        ) {
+                                            Text("Ver Mis Postulaciones")
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            Button(
+                                onClick = { showApplyDialog = true },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(54.dp),
+                                shape = RoundedCornerShape(16.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = DetailGreen
+                                )
+                            ) {
+                                Text(
+                                    text = "Postularme a esta convocatoria",
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.White
+                                )
+                            }
+                        }
+
+                        Spacer(Modifier.height(16.dp))
+
+                        if (showApplyDialog) {
+                            com.example.blockvoluntariado.feature.application.presentation.dialog.PostulacionDialog(
+                                convocatoriaTitle = convocatoria.title,
+                                isLoading = isApplying,
+                                onDismissRequest = { showApplyDialog = false },
+                                onConfirm = { motivation ->
+                                    isApplying = true
+                                    if (onPostular != null) {
+                                        onPostular(convocatoriaId, motivation) {
+                                            isApplying = false
+                                            showApplyDialog = false
+                                            hasApplied = true
+                                        }
+                                    } else {
+                                        isApplying = false
+                                        showApplyDialog = false
+                                        hasApplied = true
+                                    }
+                                }
+                            )
+                        }
                     }
                 }
 

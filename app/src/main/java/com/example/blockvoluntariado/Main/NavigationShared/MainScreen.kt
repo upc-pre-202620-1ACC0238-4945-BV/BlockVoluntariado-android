@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.blockvoluntariado.Main.NavigationDiscoveryVolunteering.discoveryNavGraph
+import com.example.blockvoluntariado.feature.application.navigation.applicationNavGraph
 import com.example.blockvoluntariado.feature.volunteerProfile.presentation.DetailPreference
 import com.example.blockvoluntariado.feature.volunteerProfile.presentation.DetailProfile
 import com.example.blockvoluntariado.feature.volunteerProfile.presentation.ProfileHomeScreen
@@ -34,7 +35,17 @@ fun MainScreen(
             // 1. Grafo de navegación de Discovery Volunteering
             discoveryNavGraph(navController)
 
-            // 2. Grafo de navegación de Volunteer Profile
+            // 2. Grafo de navegación de Application Management
+            applicationNavGraph(
+                navController = navController,
+                onNavigateToConvocatoriaDetail = { id: Long ->
+                    navController.navigate(
+                        com.example.blockvoluntariado.Main.NavigationDiscoveryVolunteering.DetailRoute(id.toInt())
+                    )
+                }
+            )
+
+            // 3. Grafo de navegación de Volunteer Profile
             composable<VolunteerProfileRoute> {
                 ProfileHomeScreen(
                     volunteerId = currentVolunteerId,
