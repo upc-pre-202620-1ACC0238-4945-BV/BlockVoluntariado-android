@@ -16,6 +16,9 @@ import dagger.hilt.components.SingletonComponent
 interface RepositoryModule {
 
     @Binds
+    fun provideApplicationRepository(impl: com.example.blockvoluntariado.feature.application.infrastructure.repository.ApplicationRepositoryImpl): com.example.blockvoluntariado.feature.application.domain.repository.ApplicationRepository
+
+    @Binds
     fun provideAuthRepository(impl: AuthRepositoryImpl): AuthRepository
 
     @Binds

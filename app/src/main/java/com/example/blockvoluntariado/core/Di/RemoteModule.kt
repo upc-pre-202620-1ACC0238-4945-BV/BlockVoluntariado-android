@@ -66,6 +66,12 @@ object RemoteModule {
 
     @Provides
     @Singleton
+    fun provideApplicationService(retrofit: Retrofit): com.example.blockvoluntariado.feature.application.infrastructure.remote.ApplicationService {
+        return retrofit.create(com.example.blockvoluntariado.feature.application.infrastructure.remote.ApplicationService::class.java)
+    }
+
+    @Provides
+    @Singleton
     fun provideAuthService(retrofit: Retrofit): AuthService {
         return retrofit.create(AuthService::class.java)
     }

@@ -21,6 +21,16 @@ fun NavGraphBuilder.discoveryNavGraph(navController: NavController) {
 
     composable<DetailRoute> { backStackEntry ->
         val detailRoute: DetailRoute = backStackEntry.toRoute()
-        ConvocatoriaDetailScreen(convocatoriaId = detailRoute.id)
+        val postActionViewModel: com.example.blockvoluntariado.feature.application.presentation.my_applications.PostulacionActionViewModel = androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel()
+        ConvocatoriaDetailScreen(
+            convocatoriaId = detailRoute.id,
+            onBack = { navController.popBackStack() },
+            onPostular = { id, motivation, onDone ->
+                postActionViewModel.apply(id.toLong(), motivation, onDone)
+            },
+            onNavigateToApplications = {
+                navController.navigate(com.example.blockvoluntariado.feature.application.navigation.MyApplicationsRoute)
+            }
+        )
     }
 }

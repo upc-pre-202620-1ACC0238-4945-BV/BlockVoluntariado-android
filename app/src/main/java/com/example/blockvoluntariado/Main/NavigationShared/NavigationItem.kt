@@ -2,28 +2,31 @@ package com.example.blockvoluntariado.Main.NavigationShared
 
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.blockvoluntariado.Main.NavigationDiscoveryVolunteering.HomeRoute
+import com.example.blockvoluntariado.core.ui.calendar_today
 import com.example.blockvoluntariado.core.ui.person
 import com.example.blockvoluntariado.core.ui.search
+import com.example.blockvoluntariado.feature.application.navigation.MyApplicationsRoute
 
-
-enum class NavigationItem (
-
+enum class NavigationItem(
     val route: Any,
     val icon: ImageVector,
     val title: String
-
 ) {
     DISCOVERY(
         route = HomeRoute,
         icon = search,
-        title = "Convocatorias"
+        title = "Explorar"
+    ),
+
+    APPLICATIONS(
+        route = MyApplicationsRoute,
+        icon = calendar_today,
+        title = "Postulaciones"
     ),
 
     PROFILE(
-    route = VolunteerProfileRoute,
-    icon = person,
-    title = "Perfil"
+        route = VolunteerProfileRoute,
+        icon = person,
+        title = "Perfil"
     )
-
-
 }
