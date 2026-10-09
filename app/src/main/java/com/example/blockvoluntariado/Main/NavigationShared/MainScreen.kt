@@ -26,16 +26,29 @@ fun MainScreen() {
             startDestination = NavigationItem.entries.first().route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            // Ruta principal de tu Bounded Context
+
+
             composable<HomeRoute> {
                 HomeScreen(
                     OnNavigateToDetail = { convocatoriaId ->
-                        navController.navigate(DetailRoute(convocatoriaId))
+                        navController.navigate(
+                            DetailRoute(convocatoriaId)
+                        )
                     }
                 )
             }
 
-            discoveryNavGraph(navController)
+            composable<DetailRoute> { backStackEntry ->
+                val detailRoute: DetailRoute =
+                    backStackEntry.toRoute()
+
+                ConvocatoriaDetailScreen(
+                    convocatoriaId = detailRoute.id,
+                    onBack = {
+                        navController.popBackStack()
+                    }
+                )
+            }
         }
     }
 }

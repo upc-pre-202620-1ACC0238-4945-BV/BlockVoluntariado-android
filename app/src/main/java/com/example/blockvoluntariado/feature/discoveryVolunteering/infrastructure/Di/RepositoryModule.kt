@@ -2,6 +2,7 @@ package com.example.blockvoluntariado.feature.discoveryVolunteering.infrastructu
 
 import com.example.blockvoluntariado.feature.discoveryVolunteering.domain.ConvocatoriasRepository
 import com.example.blockvoluntariado.feature.discoveryVolunteering.infrastructure.Repositories.ConvocatoriaRepositoryImpl
+import com.example.blockvoluntariado.feature.discoveryVolunteering.infrastructure.Repositories.InMemoryRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,6 +15,6 @@ import dagger.hilt.components.SingletonComponent
 interface RepositoryModule {
 
     @Binds
-    fun provideConvocatoriaRepository(impl: ConvocatoriaRepositoryImpl): ConvocatoriasRepository
+    fun provideConvocatoriaRepository(impl: InMemoryRepository): ConvocatoriasRepository
 
 }

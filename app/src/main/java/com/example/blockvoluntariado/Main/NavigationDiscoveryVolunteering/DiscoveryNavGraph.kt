@@ -9,7 +9,7 @@ import com.example.blockvoluntariado.feature.discoveryVolunteering.presentation.
 import com.example.blockvoluntariado.feature.discoveryVolunteering.presentation.HomeScreen
 
 fun NavGraphBuilder.discoveryNavGraph(navController: NavController) {
-    // 1. Pantalla Inicio / Lista de convocatorias
+
     composable<HomeRoute> {
         HomeScreen(
             OnNavigateToDetail = { id ->
@@ -18,7 +18,7 @@ fun NavGraphBuilder.discoveryNavGraph(navController: NavController) {
         )
     }
 
-    // 2. Pantalla de Detalle de Convocatoria
+
     composable<DetailRoute> { backStackEntry ->
         val detailRoute: DetailRoute = backStackEntry.toRoute()
         ConvocatoriaDetailScreen(convocatoriaId = detailRoute.id)
