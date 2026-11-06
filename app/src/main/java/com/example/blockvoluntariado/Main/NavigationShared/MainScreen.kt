@@ -4,11 +4,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.runtime.getValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.toRoute
 import com.example.blockvoluntariado.Main.NavigationDiscoveryVolunteering.discoveryNavGraph
+import com.example.blockvoluntariado.extras.MainExtraTopBar
 import com.example.blockvoluntariado.feature.application.navigation.applicationNavGraph
 import com.example.blockvoluntariado.feature.gamificationFeedback.navigation.GamificationRoute
 import com.example.blockvoluntariado.feature.gamificationFeedback.navigation.gamificationNavGraph
@@ -19,14 +22,33 @@ import com.example.blockvoluntariado.feature.volunteerProfile.presentation.Detai
 import com.example.blockvoluntariado.feature.volunteerProfile.presentation.DetailProfile
 import com.example.blockvoluntariado.feature.volunteerProfile.presentation.ProfileHomeScreen
 
-
 @Composable
 fun MainScreen(
     currentVolunteerId: Int = 1 // Adaptable: puedes pasar el ID del usuario logueado o dejar 1 por defecto
 ) {
     val navController = rememberNavController()
 
+    val navBackStackEntry by
+    navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    val onMainTab = NavigationItem.entries.any { item ->
+        currentDestination?.route?.contains(
+            item.route::class.simpleName.orEmpty()
+        ) == true
+    }
+    val showBack = !onMainTab &&
+            navController.previousBackStackEntry != null
+
     Scaffold(
+        topBar = {
+            MainExtraTopBar(
+                showBack = showBack,
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        },
+
         bottomBar = {
             MainNavigationBar(navController)
         }
