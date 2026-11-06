@@ -12,7 +12,9 @@ import com.example.blockvoluntariado.core.ui.theme.BlockVoluntariadoTheme
 import com.example.blockvoluntariado.feature.authOnboarding.navigation.AuthNavGraphRoute
 import com.example.blockvoluntariado.feature.authOnboarding.navigation.MainAppRoute
 import com.example.blockvoluntariado.feature.authOnboarding.navigation.authNavGraph
+import com.example.blockvoluntariado.feature.authOnboarding.navigation.LoginRoute
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -36,9 +38,24 @@ class MainActivity : ComponentActivity() {
                         }
                     )
 
+
                     composable<MainAppRoute> {
-                        MainScreen()
+
+                        MainScreen(
+                            onLogout = {
+
+                                rootNavController.navigate(LoginRoute) {
+
+                                    popUpTo(MainAppRoute) {
+                                        inclusive = true
+                                    }
+
+                                    launchSingleTop = true
+                                }
+                            }
+                        )
                     }
+
                 }
             }
         }
