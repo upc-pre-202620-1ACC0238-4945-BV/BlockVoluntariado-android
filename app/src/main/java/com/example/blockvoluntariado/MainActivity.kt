@@ -4,44 +4,60 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.blockvoluntariado.Main.NavigationShared.MainScreen
 import com.example.blockvoluntariado.core.ui.theme.BlockVoluntariadoTheme
+import com.example.blockvoluntariado.feature.authOnboarding.navigation.AuthNavGraphRoute
+import com.example.blockvoluntariado.feature.authOnboarding.navigation.MainAppRoute
+import com.example.blockvoluntariado.feature.authOnboarding.navigation.authNavGraph
+import com.example.blockvoluntariado.feature.authOnboarding.navigation.LoginRoute
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             BlockVoluntariadoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                val rootNavController = rememberNavController()
+
+                NavHost(
+                    navController = rootNavController,
+                    startDestination = AuthNavGraphRoute
+                ) {
+                    authNavGraph(
+                        navController = rootNavController,
+                        onAuthSuccess = {
+                            rootNavController.navigate(MainAppRoute) {
+                                popUpTo(AuthNavGraphRoute) { inclusive = true }
+                            }
+                        }
                     )
+
+
+                    composable<MainAppRoute> {
+
+                        MainScreen(
+                            onLogout = {
+
+                                rootNavController.navigate(LoginRoute) {
+
+                                    popUpTo(MainAppRoute) {
+                                        inclusive = true
+                                    }
+
+                                    launchSingleTop = true
+                                }
+                            }
+                        )
+                    }
+
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    BlockVoluntariadoTheme {
-        Greeting("Android")
     }
 }
