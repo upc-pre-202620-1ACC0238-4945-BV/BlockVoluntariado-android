@@ -12,6 +12,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.toRoute
 import com.example.blockvoluntariado.Main.NavigationDiscoveryVolunteering.discoveryNavGraph
 import com.example.blockvoluntariado.extras.MainExtraTopBar
+import com.example.blockvoluntariado.extras.rememberBackgroundMusicState
 import com.example.blockvoluntariado.feature.application.navigation.applicationNavGraph
 import com.example.blockvoluntariado.feature.gamificationFeedback.navigation.GamificationRoute
 import com.example.blockvoluntariado.feature.gamificationFeedback.navigation.gamificationNavGraph
@@ -27,6 +28,7 @@ fun MainScreen(
     currentVolunteerId: Int = 1 // Adaptable: puedes pasar el ID del usuario logueado o dejar 1 por defecto
 ) {
     val navController = rememberNavController()
+    val music = rememberBackgroundMusicState()
 
     val navBackStackEntry by
     navController.currentBackStackEntryAsState()
@@ -43,8 +45,15 @@ fun MainScreen(
         topBar = {
             MainExtraTopBar(
                 showBack = showBack,
+
                 onBack = {
                     navController.popBackStack()
+                },
+
+                isMusicPlaying = music.isPlaying,
+
+                onToggleMusic = {
+                    music.toggle()
                 }
             )
         },
